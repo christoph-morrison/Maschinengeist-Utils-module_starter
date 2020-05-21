@@ -1,0 +1,2 @@
+exclude = InputOutput::RequireCheckedSyscalls CodeLayout::RequireTidyCode
+severity = brutal
