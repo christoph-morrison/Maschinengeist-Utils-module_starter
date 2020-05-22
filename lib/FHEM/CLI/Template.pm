@@ -28,7 +28,7 @@ Readonly our @VALID_BOILERPLATE_MODES   => qw{legacy cpan package};
 Readonly our $LICENSE_DIR               => q{licenses};
 Readonly our $LICENSE_FILE_EXT          => q{.json};
 Readonly our $WRAP_COLUMNS              => 80;
-Readonly our $WRAP_LICENSE_SEPERATOR    => qq{\n\t};
+Readonly our $WRAP_LICENSE_SEPARATOR    => qq{\n\t};
 
 ################################################## package global variables
 my $config = {
@@ -129,6 +129,7 @@ sub set_module_path {
     }
 
     $config->{module_path} = $arg_value;
+    say Dumper($config->{module_path});
     return;
 }
 
@@ -175,7 +176,7 @@ sub get_license_vars {
     # there is no other way to do it ATM, so silence Perl::Critic for a second
     ## no critic (Variables::ProhibitPackageVars)
     local $Text::Wrap::columns    =   $WRAP_COLUMNS;
-    local $Text::Wrap::separator  =   $WRAP_LICENSE_SEPERATOR;
+    local $Text::Wrap::separator  =   $WRAP_LICENSE_SEPARATOR;
     ## use critic
 
     return {
