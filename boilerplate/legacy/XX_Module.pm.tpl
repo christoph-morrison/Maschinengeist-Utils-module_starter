@@ -20,7 +20,7 @@
 
 use strict;
 use warnings FATAL => 'all';
-$Id$
+# $Id$
 
 sub [% name %]_Initialize {
     return;
