@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!perl
 use strict 'refs';
 use warnings FATAL => 'all';
 use lib q{lib/};
@@ -55,10 +55,7 @@ for (FHEM::CLI::Template::get_config(q{boilerplate_mode})) {
     when (qr{(?:package|legacy)}xms) {
         # create path to the package file
         FHEM::CLI::Template::set_config(q{package_file_path},
-            join SL, (
-                FHEM::CLI::Template::get_config(q{module_real_path}),
-                FHEM::CLI::Template::get_config(q{module_full_name}) . q{.pm}
-            )
+            FHEM::CLI::Template::create_package_file_path()
         );
 
         $files_for_replace = {
@@ -76,14 +73,34 @@ for (FHEM::CLI::Template::get_config(q{boilerplate_mode})) {
         }
     }
 
+    when (q{package}) {
+        # create path to the package file
+        FHEM::CLI::Template::set_config(q{package_file_path},
+            FHEM::CLI::Template::create_package_file_path()
+        );
+
+        # create path to the legacy wrapper stub file
+        FHEM::CLI::Template::set_config(q{stub_file_path},
+            FHEM::CLI::Template::create_package_file_path()
+        );
+
+        $files_for_replace = {
+            'module_file'   => {
+                q{source}   => q{boilerplate} . SL . FHEM::CLI::Template::get_config(q{boilerplate_mode}) . SL . q{XX_Module.pm.tpl},
+                q{target}   => FHEM::CLI::Template::get_config(q{package_file_path}),
+            }
+        };
+
+        # set package name
+        $template_vars->{package} ={
+            q{full_name}    => FHEM::CLI::Template::get_config(q{package_full}),
+        } ;
+    }
+
     when (q{cpan}) {
         # create path to the legacy wrapper stub file
         FHEM::CLI::Template::set_config(q{stub_file_path},
-            join SL, (
-                FHEM::CLI::Template::get_config(q{module_real_path}),
-                q{FHEM},
-                FHEM::CLI::Template::get_config(q{module_full_name}) . q{.pm}
-            )
+            FHEM::CLI::Template::create_package_file_path()
         );
 
         # create path to the lib
@@ -108,6 +125,11 @@ for (FHEM::CLI::Template::get_config(q{boilerplate_mode})) {
 
         # create stub file directory
         FHEM::CLI::Template::create_dir(FHEM::CLI::Template::get_config(q{stub_file_path}));
+
+        # set package name
+        $template_vars->{package} ={
+            q{full_name}    => FHEM::CLI::Template::get_config(q{package_full}),
+        } ;
 
         $files_for_replace = {
             'module_file'   => {

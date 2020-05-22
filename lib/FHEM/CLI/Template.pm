@@ -29,6 +29,7 @@ Readonly our $LICENSE_DIR               => q{licenses};
 Readonly our $LICENSE_FILE_EXT          => q{.json};
 Readonly our $WRAP_COLUMNS              => 80;
 Readonly our $WRAP_LICENSE_SEPARATOR    => qq{\n\t};
+Readonly our $PACKAGE_FILE_EXT          => q{.pm};
 
 ################################################## package global variables
 my $config = {
@@ -224,6 +225,13 @@ sub create_dir {
     }
 
     return;
+}
+
+sub create_package_file_path {
+    return join( SL, (
+            $config->{module_real_path},
+            $config->{module_full_name},
+    )) . $PACKAGE_FILE_EXT;
 }
 
 1;
