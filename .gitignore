@@ -39,3 +39,4 @@ inc/
 /boilerplate/legacy/XX_Module.pm
 /boilerplate/cpan/XX_Module.pm
 /boilerplate/cpan/Package.pm
+.aliases
