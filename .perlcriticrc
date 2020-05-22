@@ -1,2 +1,2 @@
-exclude = InputOutput::RequireCheckedSyscalls CodeLayout::RequireTidyCode
+exclude = InputOutput::RequireCheckedSyscalls CodeLayout::RequireTidyCode Miscellanea::ProhibitUnrestrictedNoCritic
 severity = brutal
