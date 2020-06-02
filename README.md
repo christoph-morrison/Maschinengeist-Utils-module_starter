@@ -1,4 +1,4 @@
-# mod-Template
+# FHEM::App::module_template
 A [FHEM](https://fhem.de/) module for generating FHEM modules.
 
 # Included Libraries
