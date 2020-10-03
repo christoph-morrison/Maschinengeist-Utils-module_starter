@@ -1,4 +1,4 @@
-# Maschinengeist::Core::App::module-starter
+# Maschinengeist::Utils::module_starter
 A [Module::Starter]() like tool for creating Maschinengeist module boilerplates 
 
 # Included Libraries
